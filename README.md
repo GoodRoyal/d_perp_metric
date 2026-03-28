@@ -70,4 +70,6 @@ done
 
 ## License
 
-No license file is currently included. Add one if you plan to distribute or reuse the code outside private research.
+This project is licensed under the MIT License.
+
+See the LICENSE file for details.
