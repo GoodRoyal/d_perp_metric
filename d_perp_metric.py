@@ -249,14 +249,6 @@ def d_perp_star(n: int, B: float, sigma: float, xi_max: float = 1.0) -> dict:
     # under bandwidth constraint) and is retired from active use.
     f_val = r**2 - 1.0 - np.log(r**2)
     f_val = max(0.0, f_val)
-```
-
----
-
-### Updated Return Dict
-
-The return dict currently has `'d_perp_star': d_star`. Keep that key name — it is used in `comparison_a2.py` — but the value is now correct. No other files need changes.
-
 
     return {
         'r':           r,
@@ -660,5 +652,13 @@ def collect_results() -> dict:
 
 if __name__ == "__main__":
     import json
+
+    def _json_default(obj):
+        if isinstance(obj, np.generic):
+            return obj.item()
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
     output = collect_results()
-    print(json.dumps(output, indent=2))
+    print(json.dumps(output, indent=2, default=_json_default))
